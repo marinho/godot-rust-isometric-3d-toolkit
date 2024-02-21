@@ -24,9 +24,6 @@ impl ActivatorArea {
     #[signal]
     fn input_action();
 
-    // [Signal]
-    // public delegate void InputActionEventHandler();
-
     // #[func]
     // fn on_player_body_entered(&mut self, _body: Gd<PhysicsBody2D>) {
     // }

@@ -12,7 +12,7 @@ cargo watch -x "build"
 cargo watch -x "test"
 ```
 
-## Using in a Godto 4.x project
+## Using in a Godot 4.x project
 
 1. Copy `toolkit.gdextension.template` as just `toolkit.gdextention` (or another name as you prefer) into the Godot project root folder.
 2. Update file paths in `toolkit.gdextention`. If you placed this folder (where `README.md` is located) inside the `addons` folder of the Godot project, you don't have to modify them.

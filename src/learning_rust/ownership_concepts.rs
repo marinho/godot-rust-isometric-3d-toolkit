@@ -1,13 +1,15 @@
+#![allow(dead_code)]
+
 // source: https://www.youtube.com/watch?v=VFIOSWy93H0
 
 // -------------- IMPLEMENTATION
 
 pub fn copy_and_move_ownership() {
     let x = 5;
-    let y = x;
+    let _y = x;
 
     let s1 = String::from("hello"); // this is invalidated when line below moves ownership of this value to s2
-    let s2 = s1;
+    let _s2 = s1;
 }
 
 pub fn takes_ownership(some_string: String) {

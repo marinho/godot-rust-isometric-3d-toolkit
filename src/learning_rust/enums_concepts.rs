@@ -1,8 +1,9 @@
+#![allow(dead_code)]
+
 // source: https://youtu.be/DSZqIJhkNCM?si=DGUxLLh43vOPzcsz
 
 // -------------- IMPLEMENTATION
-
-enum PersonAddress {
+pub enum PersonAddress {
     Street { name: String, number: u16 },
     PostalCode(u16),
     Place(String),
@@ -10,7 +11,7 @@ enum PersonAddress {
 }
 
 impl PersonAddress {
-    fn get_address(&self) -> String {
+    pub fn get_address(&self) -> String {
         match self {
             PersonAddress::Street { name, number } => format!("{} {}", name, number),
             PersonAddress::PostalCode(code) => format!("{}", code),
@@ -20,14 +21,14 @@ impl PersonAddress {
     }
 }
 
-#[derive(Debug)]
-enum GermanyState {
+// #[derive(Debug)]
+pub enum GermanyState {
     Hamburg,
     Bremen,
     Berlin,
 }
 
-enum Coin {
+pub enum Coin {
     Penny,
     Nickel,
     Dime,
@@ -35,7 +36,7 @@ enum Coin {
 }
 
 impl Coin {
-    fn value_in_cents(&self) -> u8 {
+    pub fn value_in_cents(&self) -> u8 {
         match self {
             Coin::Penny => 1,
             Coin::Nickel => 5,
@@ -50,7 +51,7 @@ impl Coin {
     }
 }
 
-fn plus_one(value: Option<i32>) -> Option<i32> {
+pub fn plus_one(value: Option<i32>) -> Option<i32> {
     if let Some(0) = value {
         return None;
     }

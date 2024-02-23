@@ -1,5 +1,6 @@
-// source: https://www.youtube.com/watch?v=juIINGuZyBc
+#![allow(dead_code)]
 
+// source: https://www.youtube.com/watch?v=juIINGuZyBc
 
 // -------------- IMPLEMENTATION
 
@@ -12,7 +13,7 @@ pub fn longest_string<'a>(x: &'a str, y: &'a str) -> &'a str {
     }
 }
 
-pub fn take_first_ignore_second<'a>(x: &'a str, y: &str) -> &'a str {
+pub fn take_first_ignore_second<'a>(x: &'a str, _y: &str) -> &'a str {
     x
 }
 
@@ -99,6 +100,8 @@ mod tests {
         let i = ImportantExcerpt {
             part: first_sentence,
         };
+
+        assert_eq!(i.return_part("Attention please"), first_sentence);
     }
 
     #[test]

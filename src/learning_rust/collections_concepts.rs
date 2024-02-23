@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 // source: https://youtu.be/DSZqIJhkNCM?si=DGUxLLh43vOPzcsz
 
 // -------------- IMPLEMENTATION
@@ -14,11 +16,21 @@ struct City {
     population: f32,
 }
 
+impl City {
+    pub fn new(name: &str, population: f32) -> City {
+        City {
+            name: name.to_string(),
+            population,
+        }
+    }
+}
+
 // -------------- TESTS
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::collections::HashMap;
 
     #[test]
     fn vectors_with_integers_test() {
@@ -47,11 +59,11 @@ mod tests {
     fn vector_ownership_test() {
         // filter
         let cities = vec![
-            City{ name: String::from("Berlin"), population: 3.7 },
-            City{ name: String::from("Hamburg"), population: 1.9 },
-            City{ name: String::from("Munich"), population: 1.6 },
-            City{ name: String::from("Magdeburg"), population: 0.260 },
-            City{ name: String::from("Potsdam"), population: 0.15 },
+            City::new("Berlin", 3.7),
+            City::new("Hamburg", 1.9),
+            City::new("Munich", 1.6),
+            City::new("Magdeburg", 0.260),
+            City::new("Potsdam", 0.15),
         ];
         let million_cities: Vec<&City> = cities
             .iter()
@@ -89,5 +101,72 @@ mod tests {
             .max_by(|a, b| a.population.clone().partial_cmp(&b.population).unwrap())
             .unwrap();
         assert_eq!(largest.name, String::from("Berlin"));
+    }
+
+    #[test]
+    fn strings_test() {
+        let s1 = String::new();
+        let s2 = "hello";
+        let s3 = s2.to_string();
+        let s4 = String::from("hello");
+
+        assert_eq!(s1, "");
+        assert_eq!(s2, s3);
+        assert_eq!(s3, s4);
+
+        let mut s5 = String::from("hello");
+        s5.push_str(", world");
+        s5.push('!');
+        s5 += "?";
+        assert_eq!(s5, "hello, world!?");
+
+        assert_eq!("hello".to_owned() + "friend", "hellofriend");
+
+        let s6 = "hello".to_string();
+        let c1 = s6.chars().nth(0).unwrap(); // s6[0]; isn't possible because UTF-8 has characters with different lengths
+        assert_eq!(c1, 'h');
+    }
+
+    #[test]
+    fn hashmaps_1_test() {
+        let blue = String::from("blue");
+        let yellow = String::from("yellow");
+        let mut scores: HashMap<String, i32> = HashMap::new();
+        scores.insert(blue.clone(), 10);
+        scores.insert(yellow.clone(), 50);
+
+        let score = scores.get(&blue);
+        assert_eq!(score, Some(&10));
+    }
+
+    #[test]
+    fn hashmaps_2_test() {
+        let mut scores: HashMap<String, i32> = HashMap::new();
+        
+        scores.insert(String::from("blue"), 10);
+        scores.insert(String::from("yellow"), 20);
+
+        scores.entry(String::from("yellow")).or_insert(30);
+        scores.entry(String::from("green")).or_insert(40);
+
+        assert_eq!(scores.get("blue"), Some(&10));
+        assert_eq!(scores.get("yellow"), Some(&20)); // not 30
+        assert_eq!(scores.get("green"), Some(&40));
+        assert_eq!(scores.get("red"), None);
+    }
+
+    #[test]
+    fn hashmaps_3_test() {
+        let text = "hello world wonderful world";
+        let mut map: HashMap<&str, i32> = HashMap::new();
+
+        for word in text.split_whitespace() {
+            let count = map.entry(word).or_insert(0);
+            *count += 1;
+        }
+
+        assert_eq!(map.get("hello"), Some(&1));
+        assert_eq!(map.get("world"), Some(&2));
+        assert_eq!(map.get("wonderful"), Some(&1));
     }
 }

@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://ct6v1c7ga4uuk"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="ActivatorArea" type="ActivatorArea" parent="."]
+can_activate = true
+can_deactivate = true
+can_input_action = true
+activated_by_player = true
+activated_by_enemy = false
+text_for_input = "Input Action"
+maximum_input_actions = 0
+time_before_next_input_action = 0.0
+input_name = "Choose"
+activate_sound = null
+deactivate_sound = null
+input_action_sound = null
